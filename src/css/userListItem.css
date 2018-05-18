@@ -1,0 +1,18 @@
+.user-list-item {   
+    margin: 0 0 15px 0;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.user-list-item > div {
+    float: left;
+}
+
+.user-meta {
+    padding: 25px 20px;
+}
+
+.user-name-header {
+    font-size: 16px;
+    margin: 0 0 15px 0;
+}
