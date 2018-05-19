@@ -8,6 +8,8 @@ import Spinner from 'reactjs-simple-spinner';
 class App extends Component {
     constructor() {
         super();
+
+        // Set initial state for user list app
         this.state = {
             users: [],
             filteredUsers: [],
@@ -66,7 +68,7 @@ class App extends Component {
     render() {
         const { users, filteredUsers } = this.state;
         const resultCount = filteredUsers.length ? filteredUsers.length : users.length;
-        
+
         return (
             <div className="App">
                 <h1>User Directory</h1>

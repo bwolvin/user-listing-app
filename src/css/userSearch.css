@@ -5,15 +5,16 @@
 }
 
 .search-box {
+    border: 1px solid #ccc;
     float: left;
     display: block;
+    padding: 3px;
     width: 75%;
 }
 
 .search-box-input {
+    border: none;
     display: block;
-    padding: 3px;
-    width: 100%;
 }
 
 .search-result-count {
