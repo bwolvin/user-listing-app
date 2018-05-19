@@ -1,9 +1,22 @@
 .user-search {
     overflow: hidden;
     margin: 0 0 15px 0;
+    padding: 5px 0;
 }
 
 .search-box {
+    float: left;
     display: block;
     width: 75%;
+}
+
+.search-box-input {
+    display: block;
+    padding: 3px;
+    width: 100%;
+}
+
+.search-result-count {
+    float: right;
+    margin-top: 5px;
 }

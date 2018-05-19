@@ -4,7 +4,8 @@
     overflow: hidden;
 }
 
-.user-list-item > div {
+.user-meta,
+.user-image {
     float: left;
 }
 
