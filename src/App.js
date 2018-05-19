@@ -1,37 +1,32 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import UserList from './components/userList'
+import UserList from './components/users/userList';
+import UserSearch from './components/users/userSearch'
+import { getRelevantUserDataList, getFilteredResultsForUsers } from './utils/userUtils';
+import { getInitialUserListData } from './api/requestApi';
+import Spinner from 'reactjs-simple-spinner';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      initialUsers: [],
+      users: [],
+      filteredUsers: [],
       loading: false
     };
   }
 
   componentDidMount() {
-    const requestUserListUrl = `https://randomuser.me/api/?results=100`;
-
     this.setState({ loading: true }, () => {
-      axios.get(requestUserListUrl)
+      const userListCount = 100;
+      getInitialUserListData(userListCount)
         .then(res => {
-          const results = res.data.results;
-
-          // create an array of users only with relevant data
-          const relevantUserData = results.map(item => {
-            return {
-              location: item.location,
-              name: item.name,
-              picture: item.picture
-            };
-          });
+          // Slim down the user list data to only get relevant data that is needed for the app
+          const relevantUserDataList = getRelevantUserDataList(res.data.results);
 
           this.setState({
-            initialUsers: relevantUserData,
+            users: relevantUserDataList,
             loading: false
-          })
+          });
         })
         .catch(function(error) {
           console.log(error);
@@ -40,20 +35,42 @@ class App extends Component {
   }
 
   renderUserList(){
-    if (!this.state.initialUsers || !this.state.initialUsers.length) return;
-    return (<UserList initialUsers={this.state.initialUsers} loading={this.state.loading}/>)
+    const { loading, users, filteredUsers } = this.state;
+
+    // If we have matches for filtered users display them otherwise
+    // display the initial list of all the users
+    const usersToDisplay = filteredUsers.length ? filteredUsers : users;
+
+    if (loading) {
+      return (<Spinner message="Loading..." />)
+    } else {
+      // Render user list when we have initial users back from request api
+      return (<UserList users={usersToDisplay} />)
+    }
+  }
+
+  handleSearchChange(searchString) {
+    const filtererdResults = getFilteredResultsForUsers(this.state.users, searchString);
+    let filteredUserList =  [];
+
+    // There are filtered user results to display
+    if (filtererdResults < this.state.users) {
+      filteredUserList = filtererdResults;
+    }
+
+    this.setState({
+      filteredUsers: filteredUserList
+    });
   }
 
   render() {
-    const { loading, initialUsers } = this.state;
-
+    const { users, filteredUsers } = this.state;
+    const resultCount = filteredUsers.length ? filteredUsers.length : users.length;
     return (
       <div className="App">
-
         <h1>User Directory</h1>
-
+        <UserSearch resultCount={resultCount} onChange={(e) => this.handleSearchChange(e)} />
         {this.renderUserList()}
-
       </div>
     );
   }
