@@ -19,14 +19,14 @@ class App extends Component {
 		this.setState({ loading: true }, () => {
 			const userListCount = 100;
 			getInitialUserListData(userListCount)
-				.then(res => {
-					// Slim down the user list data to only get relevant data that is needed for the app
-					const relevantUserDataList = getRelevantUserDataList(res.data.results);
+			.then(res => {
+				// Slim down the user list data to only get relevant data that is needed for the app
+				const relevantUserDataList = getRelevantUserDataList(res.data.results);
 
-					this.setState({
-						users: relevantUserDataList,
-						loading: false
-					});
+				this.setState({
+					users: relevantUserDataList,
+					loading: false
+				});
 			})
 			.catch(function(error) {
 				console.log(error);
