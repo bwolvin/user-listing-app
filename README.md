@@ -7,6 +7,8 @@ The goal of this project is to build a mobile-optimized user listing page that w
 
 # Tasks
 
+* Create a client-side filter (no additional server-side calls) to display matches comparing the end user's typed input against for the user directory's first and/or last names.
+
 * Display the random list of users in a mobile-friendly design while maintaining 20px margins on all sides of the user info. Meta data to be displayed includes a thumbnail, first and last name, and street address.
 
 * Display the total number of results in real-time as the user types.
@@ -15,6 +17,6 @@ The goal of this project is to build a mobile-optimized user listing page that w
 
 # Installation
 
-- npm install
-- npm start
-- Go to http://localhost:3000/ to view app
+* npm install
+* npm start
+* Go to http://localhost:3000/ to view app
