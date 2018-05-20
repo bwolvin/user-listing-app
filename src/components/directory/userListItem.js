@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import UserImage from './userImage';
+import UserPicture from './userPicture';
 import UserMeta from './userMeta';
-import '../../css/userListItem.css';
+import '../../css/directory/userListItem.css';
 
 class UserListItem extends Component {
     render() {
         const userDetails = this.props.user;
         return (
             <li className="user-list-item">
-                <UserImage userDetails={userDetails} />
+                <UserPicture userDetails={userDetails} />
                 <UserMeta userDetails={userDetails} />
             </li>
         );

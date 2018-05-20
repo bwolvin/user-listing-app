@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import UserList from './components/users/userList';
-import UserSearch from './components/users/userSearch'
-import { getRelevantUserDataList, getFilteredResultsForUsers } from './utils/userUtils';
-import { getInitialUserListData } from './api/requestApi';
+import UserList from './components/directory/userList';
+import UserSearch from './components/search/userSearch'
+import { getSlimmedDownUserList, getFilteredUsersForInput } from './utils/userUtils';
+import { getUserDirectoryList } from './api/requestApi';
 import Spinner from 'reactjs-simple-spinner';
 
 class App extends Component {
     constructor() {
         super();
 
-        // Set initial state for user list app
+        // Set initial state for user directory
         this.state = {
             users: [],
             filteredUsers: [],
@@ -19,14 +19,17 @@ class App extends Component {
 
     componentDidMount() {
         this.setState({ loading: true }, () => {
+            // Config setting for how many users to return
             const userListCount = 100;
-            getInitialUserListData(userListCount)
+            getUserDirectoryList(userListCount)
             .then(res => {
-                // Slim down the user list data to only get relevant data that is needed for the app
-                const relevantUserDataList = getRelevantUserDataList(res.data.results);
+                const users = res.data.results;
+
+                // Slim down the user directory list to only get relevant data that is needed for the app
+                const slimmedDownUserList = getSlimmedDownUserList(users);
 
                 this.setState({
-                    users: relevantUserDataList,
+                    users: slimmedDownUserList,
                     loading: false
                 });
             })
@@ -39,25 +42,26 @@ class App extends Component {
     renderUserList(){
         const { loading, users, filteredUsers } = this.state;
 
-        // If we have matches for filtered users display them otherwise
-        // display the initial list of all the users
-        const usersToDisplay = filteredUsers.length ? filteredUsers : users;
+        // If we have matches for filtered users render those
+        // otherwise render the original list of users
+        const usersToRender = filteredUsers.length ? filteredUsers : users;
 
         if (loading) {
-            return (<Spinner message="Loading..." />)
+            return (<Spinner message="Loading..." />);
         } else {
-            // Render user list when we have initial users back from request api
-            return (<UserList users={usersToDisplay} />)
+            return (<UserList users={usersToRender} />);
         }
     }
 
-    handleSearchChange(searchString) {
-        const filtererdResults = getFilteredResultsForUsers(this.state.users, searchString);
+    handleSearchChange(inputString) {
+        const { users } = this.state;
+        // Filter original set of users for input string 
+        const filtererdUsers = getFilteredUsersForInput(users, inputString);
         let filteredUserList =  [];
 
-        // There are filtered user results to display
-        if (filtererdResults < this.state.users) {
-            filteredUserList = filtererdResults;
+        // There are filtered user results to render
+        if (filtererdUsers < users) {
+            filteredUserList = filtererdUsers;
         }
 
         this.setState({
@@ -65,15 +69,19 @@ class App extends Component {
         });
     }
 
-    render() {
+    getUserResultCount() {
         const { users, filteredUsers } = this.state;
-        const resultCount = filteredUsers.length ? filteredUsers.length : users.length;
+        return filteredUsers.length ? filteredUsers.length : users.length;
+    }
 
+    render() {
         return (
             <div className="App">
                 <h1>User Directory</h1>
-                <UserSearch resultCount={resultCount} onChange={(e) => this.handleSearchChange(e)} />
-                {this.renderUserList()}
+                <div class="user-directory">
+                    <UserSearch resultCount={this.getUserResultCount()} onChange={(e) => this.handleSearchChange(e)} />
+                    {this.renderUserList()}
+                </div>
             </div>
         );
     }

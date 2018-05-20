@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class UserImage extends Component {
+class UserPicture extends Component {
     render() {
         const userDetailAltText = `${this.props.userDetails.name.first}-${this.props.userDetails.name.last}`;
         return (
@@ -11,4 +11,4 @@ class UserImage extends Component {
     }
 }
 
-export default UserImage;
+export default UserPicture;

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import '../../css/userSearch.css'
+import '../../css/search/userSearch.css'
 
 class UserSearch extends Component {
 
     handleInputChange(e) {
         const searchValue = e.target.value.toLowerCase();
-        this.props.onChange(searchValue)
+        this.props.onChange(searchValue);
     }
 
     render() {
