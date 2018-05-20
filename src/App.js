@@ -78,7 +78,7 @@ class App extends Component {
         return (
             <div className="App">
                 <h1>User Directory</h1>
-                <div class="user-directory">
+                <div className="user-directory">
                     <UserSearch resultCount={this.getUserResultsCount()} onChange={(e) => this.handleSearchChange(e)} />
                     {this.renderUserList()}
                 </div>
