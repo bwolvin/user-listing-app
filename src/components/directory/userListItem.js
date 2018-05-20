@@ -6,10 +6,11 @@ import '../../css/directory/userListItem.css';
 class UserListItem extends Component {
     render() {
         const userDetails = this.props.user;
+        const pictureAltText = `${userDetails.name.first}-${userDetails.name.last}`;
         return (
             <li className="user-list-item">
-                <UserPicture userDetails={userDetails} />
-                <UserMeta userDetails={userDetails} />
+                <UserPicture imgSrc={userDetails.picture} altText={pictureAltText} />
+                <UserMeta name={userDetails.name} location={userDetails.location} />
             </li>
         );
     }
