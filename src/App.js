@@ -69,7 +69,7 @@ class App extends Component {
         });
     }
 
-    getUserResultCount() {
+    getUserResultsCount() {
         const { users, filteredUsers } = this.state;
         return filteredUsers.length ? filteredUsers.length : users.length;
     }
@@ -79,7 +79,7 @@ class App extends Component {
             <div className="App">
                 <h1>User Directory</h1>
                 <div class="user-directory">
-                    <UserSearch resultCount={this.getUserResultCount()} onChange={(e) => this.handleSearchChange(e)} />
+                    <UserSearch resultCount={this.getUserResultsCount()} onChange={(e) => this.handleSearchChange(e)} />
                     {this.renderUserList()}
                 </div>
             </div>
