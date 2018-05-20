@@ -14,7 +14,7 @@ class UserSearch extends Component {
                 <div className="search-box">
                     <input className="search-box-input" type="text" placeholder="Type user name to filter results" onChange={(e) => {this.handleInputChange(e)}} />
                 </div>
-                <div className="search-result-count">{this.props.resultCount} Results</div>
+                <div className="search-result-count">{this.props.resultCount} {this.props.resultCount > 1 ? "Results" : "Result"}</div>
             </header>
         );
     }
