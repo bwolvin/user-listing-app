@@ -10,7 +10,7 @@ import { getSlimmedDownUserList } from '../utils/userUtils';
 export function getUserDirectoryList(userListCount) {
     const requestUserListUrl = `https://randomuser.me/api/?results=${userListCount}`;
     return axios.get(requestUserListUrl)
-    .then(users => {
+    .then(res => {
         const users = res.data.results;
         // Slim down the user directory list to only get relevant data that is needed for the app
         return getSlimmedDownUserList(users);
