@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserList from './components/directory/userList';
 import UserSearch from './components/search/userSearch'
-import { getSlimmedDownUserList, getFilteredUsersForInput } from './utils/userUtils';
+import { getFilteredUsersForInput } from './utils/userUtils';
 import { getUserDirectoryList } from './api/requestApi';
 import Spinner from 'reactjs-simple-spinner';
 
@@ -22,14 +22,9 @@ class App extends Component {
             // Config setting for how many users to return
             const userListCount = 100;
             getUserDirectoryList(userListCount)
-            .then(res => {
-                const users = res.data.results;
-
-                // Slim down the user directory list to only get relevant data that is needed for the app
-                const slimmedDownUserList = getSlimmedDownUserList(users);
-
+            .then(users => {
                 this.setState({
-                    users: slimmedDownUserList,
+                    users: users,
                     loading: false
                 });
             })
