@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
 
-class UserPicture extends Component {
-    render() {
-        return (
-            <div className="user-image">
-                <img src={this.props.imgSrc} alt={this.props.altText} />
-            </div>
-        );
-    }
+const UserPicture = (props) => {
+
+    return (
+        <div className="user-image">
+            <img src={props.imgSrc} alt={props.altText} />
+        </div>
+    );
 }
+
+UserPicture.propTypes = {
+    imgSrc: PropTypes.string,
+    altText: PropTypes.string
+};
 
 export default UserPicture;

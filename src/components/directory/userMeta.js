@@ -1,15 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
 
-class UserMeta extends Component {
-    render() {
-        return (
-            <div className="user-meta">
-                <h2 className="user-name-header">{this.props.name.first} {this.props.name.last}</h2>
-                <p>{this.props.location.postCode} {this.props.location.street}</p>
-                <p>{this.props.location.city}, {this.props.location.state}</p>
-            </div>
-        );
-    }
+const UserMeta = (props) => {
+    return (
+        <div className="user-meta">
+            <h2 className="user-name-header">{props.name.first} {props.name.last}</h2>
+            <p>{props.location.postCode} {props.location.street}</p>
+            <p>{props.location.city}, {props.location.state}</p>
+        </div>
+    );
 }
+
+UserMeta.propTypes = {
+    name: PropTypes.object,
+    location: PropTypes.object
+};
 
 export default UserMeta;

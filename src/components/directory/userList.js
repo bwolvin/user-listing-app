@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserListItem from './userListItem';
+import PropTypes from "prop-types";
 
 class UserList extends Component {
     render() {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import UserPicture from './userPicture';
 import UserMeta from './userMeta';
 import '../../css/directory/userListItem.css';
@@ -15,5 +16,9 @@ class UserListItem extends Component {
         );
     }
 }
+
+UserListItem.propTypes = {
+    user: PropTypes.object
+};
 
 export default UserListItem;
